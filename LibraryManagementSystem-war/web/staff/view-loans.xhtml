@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../layout/topBottom.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">
+        View Loans
+    </ui:define>
+
+    <ui:define name="top">
+        
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <div style="display: flex; justify-content: center; align-items: center;">
+
+
+                <p:panelGrid columns="1" style="width:60%">
+
+                    <p:dataTable rows="#{lendAndReturnManagedBean.rows}" paginator="true" paginatorPosition="bottom" widgetVar="loansTable" var="loan" value="#{lendAndReturnManagedBean.loans}" resizableColumns="true" emptyMessage="No loans found with given criteria">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <div style="display: flex; justify-content:space-between">
+                                    <div>
+                                        <h:outputText value="All Loans" />
+                                    </div>
+                                    <div>
+<!--                                        <h:outputText value="Search: " />
+                                        <p:selectOneMenu value="#{lendAndReturnManagedBean.searchType}">
+                                            <f:selectItem itemValue="MEMBER ID" itemLabel="Member ID" />
+                                            <f:selectItem itemValue="BOOK TITLE" itemLabel="Book TItle" />
+                                    
+                                            <p:ajax listener="#{lendAndReturnManagedBean.handleSearch}" update="form"/>
+                                        </p:selectOneMenu>-->
+
+<!--                                        <p:inputText placeholder="Enter keywords" value="#{lendAndReturnManagedBean.searchString}">
+                                            <p:ajax event="keyup" update="form" listener="#{lendAndReturnManagedBean.handleSearch}" />
+                                        </p:inputText>-->
+                                        <div>
+                                            <h:outputText value="Display Number of Rows " />
+                                            <p:inputNumber value="#{lendAndReturnManagedBean.rows}">
+                                                <p:ajax event="keyup" update="form" listener="#{lendAndReturnManagedBean.setRows(lendAndReturnManagedBean.rows)}" />
+                                            </p:inputNumber>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column headerText="ID">
+                            <h:outputText value="#{loan.lendId}" />
+                        </p:column>
+
+                        <p:column headerText="Member">
+                            <h:outputText value="#{loan.member}" />
+                        </p:column>
+
+                        <p:column headerText="Book">
+                            <h:outputText value="#{loan.book}" />
+                        </p:column>
+
+                        <p:column headerText="Lend Date">
+                            <h:outputText value="#{loan.lendDate}">
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Return Date">
+                            <h:outputText value="#{loan.returnDate}" />
+                        </p:column>
+
+                        <p:column headerText="Fine Amount">
+                            <h:outputText value="#{loan.fineAmount}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panelGrid>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

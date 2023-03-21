@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../layout/mainTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+        <style type="text/css">
+
+            .autoresize {
+                max-height: 100%;
+                max-width: 100%;
+            }
+
+            .my-button {
+                border: 3px solid grey;
+                transition: border-color 0.3s ease;
+            }
+
+            .my-button:hover {
+                border: 3px solid lightskyblue;
+                color: lightskyblue;
+                cursor: pointer;
+            }
+
+        </style>
+
+        <title><ui:define name="title">Register Member</ui:define></title>
+
+        <ui:define name="top">
+        </ui:define>
+
+        <ui:define name="content">
+
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <h:form>
+                    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+                    <div class="ui-g-12"> 
+                        <div class="ui-g-12 ui-md-4">
+                            <p:commandLink action="register-member.xhtml?faces-redirect=true">
+                                <p:panel id="registerMember" header="Add Member" style="text-align:center" styleClass="my-button">
+                                    <h:graphicImage value="./resources/images/add-user.png" width="100" height="100" styleClass="autoresize"/>
+                                </p:panel>
+                            </p:commandLink>
+
+                        </div>
+
+                        <div class="ui-g-12 ui-md-4">
+                            <p:commandLink action="lend-book.xhtml?faces-redirect=true">
+                                <p:panel id="lendBook" header="Lend Book" style="text-align:center" styleClass="my-button">
+                                    <h:graphicImage value="./resources/images/library.png" width="100" height="100" styleClass="autoresize"/>
+                                </p:panel>
+                            </p:commandLink>
+                        </div>
+
+                        <div class="ui-g-12 ui-md-4">
+                            <p:commandLink action="return-book.xhtml?faces-redirect=true">
+                                <p:panel id="returnBook" header="Return Book" style="text-align:center" styleClass="my-button">
+                                    <h:graphicImage value="./resources/images/return.png" width="100" height="100" styleClass="autoresize"/>
+                                </p:panel>
+                            </p:commandLink>
+                        </div>
+
+<!--                        <div class="ui-g-12 ui-md-4">
+                            <p:panel id="viewLoans" header="View Loans">
+                                <h:outputText value="" />
+                            </p:panel>
+                        </div>-->
+
+                    </div>
+
+                    <div style="clear:both" />
+                </h:form>
+            </div>
+        </ui:define>
+</ui:composition>

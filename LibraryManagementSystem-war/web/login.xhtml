@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./layout/loginTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <title><ui:define name="title">Login</ui:define></title>
+
+    <ui:define name="top">
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="display: flex; justify-content: center; align-items: center;">
+
+            <h:form id="form">
+                <p:messages id="messages" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+                <!--                 <p:panel>
+                                    <h:outputLabel value="#{loginManagedBean.userId}" />
+                                </p:panel>-->
+                <p:panel styleClass="ui-noborder">
+                    <p:panelGrid columns="2" styleClass="ui-noborder">
+                        <h:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{loginManagedBean.username}" required="true" label="username" />
+
+                        <h:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{loginManagedBean.password}" required="true" label="password" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Login" action="#{loginManagedBean.login}"
+                                             update=":form">
+                            </p:commandButton>
+                        </f:facet>  
+                    </p:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

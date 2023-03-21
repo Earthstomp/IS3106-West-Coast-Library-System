@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../layout/topBottom.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <style type="text/css">
+
+        .autoresize {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+
+
+    </style>
+
+    <title><ui:define name="title">Return Book</ui:define></title>
+
+    <ui:define name="top">
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:growl id="growl" showDetail="true" sticky="true"/>
+
+        <h:form id="form">
+            <div style="display: flex; justify-content: center; align-items: center;">
+
+
+                <p:panelGrid columns="1" style="width:75%">
+                    <p:outputLabel for="datetime" value="Return Date and Time" />
+                    <p:calendar id="datetime" value="#{lendAndReturnManagedBean.returnDate}" pattern="yyyy/MM/dd HH:mm">
+                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm" />
+                    </p:calendar>
+
+                    <p:dataTable rows="#{memberManagedBean.rows}" paginator="true" paginatorPosition="bottom" widgetVar="membersTable" var="member" value="#{memberManagedBean.members}" resizableColumns="true" emptyMessage="No members found with given criteria">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <div style="display: flex; justify-content:space-between">
+                                    <div>
+                                        <h:outputText value="Choose Member" />
+                                    </div>
+                                    <div>
+                                        <h:outputText value="Search: " />
+                                        <p:selectOneMenu value="#{memberManagedBean.searchType}">
+                                            <f:selectItem itemValue="FIRST NAME" itemLabel="First Name" />
+                                            <f:selectItem itemValue="LAST NAME" itemLabel="Last Name" />
+                                            <f:selectItem itemValue="ID" itemLabel="Identity Number" />
+                                            <f:selectItem itemValue="PHONE" itemLabel="Phone Number" />
+                                            <p:ajax listener="#{memberManagedBean.handleSearch}" update="form"/>
+                                        </p:selectOneMenu>
+
+                                        <p:inputText placeholder="Enter keywords" value="#{memberManagedBean.searchString}">
+                                            <p:ajax event="keyup" update="form" listener="#{memberManagedBean.handleSearch}" />
+                                        </p:inputText>
+                                        <div>
+                                            <h:outputText value="Display Number of Rows " />
+                                            <p:inputNumber value="#{memberManagedBean.rows}">
+                                                <p:ajax event="keyup" update="form" listener="#{memberManagedBean.setRows(memberManagedBean.rows)}" />
+                                            </p:inputNumber>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="First Name">
+                            <h:outputText value="#{member.firstName}" />
+                        </p:column>
+
+                        <p:column headerText="Last Name">
+                            <h:outputText value="#{member.lastName}" />
+                        </p:column>
+
+                        <p:column headerText="Gender">
+                            <h:outputText value="Male" rendered="#{member.gender == 'M'}" />
+                            <h:outputText value="Female" rendered="#{member.gender == 'F'}" />
+                        </p:column>
+
+                        <p:column headerText="Age">
+                            <h:outputText value="#{member.age}">
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{member.identityNo}" />
+                        </p:column>
+
+                        <p:column headerText="Phone">
+                            <h:outputText value="#{member.phone}" />
+                        </p:column>
+
+                        <p:column headerText="Address">
+                            <h:outputText value="#{member.address}" />
+                        </p:column>
+
+                        <p:column headerText="Select">
+                            <p:commandButton value="Select"
+                                             action="#{lendAndReturnManagedBean.setSelectedMember(member)}"
+                                             update=":growl"
+                                             />    
+                        </p:column>
+
+                    </p:dataTable>
+
+
+
+
+                    <p:dataTable rows="#{bookManagedBean.rows}" paginator="true" paginatorPosition="bottom" widgetVar="booksTable" var="book" value="#{bookManagedBean.books}" resizableColumns="true" emptyMessage="No books found with given criteria">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <div style="display: flex; justify-content:space-between">
+                                    <div>
+                                        <h:outputText value="Choose Book" />
+                                    </div>
+                                    <div>
+                                        <h:outputText value="Search: " />
+                                        <p:selectOneMenu value="#{bookManagedBean.searchType}">
+                                            <f:selectItem itemValue="TITLE" itemLabel="Title" />
+                                            <f:selectItem itemValue="ISBN" itemLabel="ISBN" />
+                                            <f:selectItem itemValue="AUTHOR" itemLabel="Author" />
+
+
+                                            <p:ajax listener="#{bookManagedBean.handleSearch}" update="form"/>
+                                        </p:selectOneMenu>
+                                        <p:inputText placeholder="Enter keywords" value="#{bookManagedBean.searchString}">
+                                            <p:ajax event="keyup" update="form" listener="#{bookManagedBean.handleSearch}" />
+                                        </p:inputText>
+                                        <div>
+                                            <h:outputText value="Display Number of Rows " />
+                                            <p:inputNumber value="#{bookManagedBean.rows}">
+                                                <p:ajax event="keyup" update="form" listener="#{bookManagedBean.setRows(bookManagedBean.rows)}" />
+                                            </p:inputNumber>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Title">
+                            <h:outputText value="#{book.title}" />
+                        </p:column>
+
+                        <p:column headerText="ISBN">
+                            <h:outputText value="#{book.isbn}" />
+                        </p:column>
+
+                        <p:column headerText="Author">
+                            <h:outputText value="#{book.author}">
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Select">
+                            <p:commandButton value="Select"
+                                             action="#{lendAndReturnManagedBean.setSelectedBook(book)}"
+                                             update=":growl"
+                                             />    
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:commandButton value="Return Book"
+                                     actionListener="#{lendAndReturnManagedBean.checkIfLoanExists}"
+                                     update=":growl"
+                                     />
+
+                    <p:dialog id="fineDialog" header="Uh oh! This loan is overdue" widgetVar="fineDialog"
+                              resizable="false" modal="true" showEffect="fade" hideEffect="fade"
+                              responsive="true">
+                        <div style="display: flex; justify-content:center ;align-items:flex-start ;">
+                            <h:outputText value="Please ensure member has paid for the fine">
+                            </h:outputText>
+                        </div>
+
+                        <div style="display: flex; justify-content:center ;align-items: center;">
+                            <div style="padding-top: 5px">
+                                <p:commandButton value="Payment Recieved"
+                                                 actionListener="#{lendAndReturnManagedBean.displayConfirmation}"
+                                                 update=":growl"
+                                                 />
+                            </div>
+
+                        </div>
+                    </p:dialog>
+
+                    <p:dialog id="returnDialog" header="Confirm Return of Loan" widgetVar="returnDialog"
+                              resizable="false" modal="true" showEffect="fade" hideEffect="fade"
+                              responsive="true" >
+                        <div style="display: flex; justify-content:center ;align-items: center;">
+                            <h:outputText value="Click to confirm return of loan">
+                            </h:outputText>
+                        </div>
+<!--                        <h:outputText value="#{lendAndReturnManagedBean.fineAmount}">
+                        </h:outputText>-->
+                        <div style="display: flex; justify-content:center ;align-items: center;">
+                            <div style="padding-top: 5px">
+                                <p:commandButton value="Book Recieved"
+                                                 actionListener="#{lendAndReturnManagedBean.returnBook}"
+                                                 update=":growl"
+                                                 />
+                            </div>
+
+                        </div>
+                    </p:dialog>
+
+
+                </p:panelGrid>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

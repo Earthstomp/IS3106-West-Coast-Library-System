@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../layout/topBottom.xhtml" 
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+        <style type="text/css">
+
+            .autoresize {
+                max-height: 100%;
+                max-width: 100%;
+            }
+
+            .my-button {
+                border: 2px solid grey;
+                transition: border-color 0.3s ease;
+            }
+
+            .my-button:hover {
+                border: 2px solid lightskyblue;
+                color: lightskyblue;
+                cursor: pointer;
+            }
+
+            .ui-panelgrid td, .ui-panelgrid tr
+            {
+                border: none !important
+            }
+
+        </style>
+        
+        <title><ui:define name="title">Register Member</ui:define></title>
+
+        <ui:define name="top">
+        </ui:define>
+
+        <ui:define name="content">
+
+            <h:form id="form">
+                <p:messages id="messages" closable="true">
+                    <p:autoUpdate />
+                </p:messages>
+                <div style="display: flex; justify-content: center; align-items: center;">
+
+                    <p:panel header="Register Member" style="width:60%">
+                        <p:panelGrid columns="1" styleClass="ui-noborder">
+                            <p:panel styleClass="ui-noborder">
+                                <div class="ui-fluid ui-g-12">
+                                    <div class="field ui-g-12 ui-md-6">
+                                        <p:outputLabel for="firstName" value="First Name"/>
+                                        <p:inputText id="firstName" value="#{memberManagedBean.firstName}" requiredMessage="First Name is required" required="true"/>
+                                    </div>
+                                    <div class="field ui-g-12 ui-md-6">
+                                        <p:outputLabel for="lastname" value="Last Name"/>
+                                        <p:inputText id="lastname" value="#{memberManagedBean.lastName}" requiredMessage="Last Name is required" required="true"/>
+
+                                    </div>
+                                    <div class="field ui-g-12 ui-md-3">
+                                        <p:outputLabel for="id" value="Identity Number"/>
+                                        <p:inputText id="id" value="#{memberManagedBean.identityNumber}" requiredMessage="Identity Number is required" required="true"/>
+                                    </div>
+                                    <div class="field ui-g-12 ui-md-3">
+                                        <p:outputLabel for="phone" value="Phone Number"/>
+                                        <p:inputText id="phone" value="#{memberManagedBean.phone}" requiredMessage="Phone Number is required" required="true"/>
+                                    </div>
+                                    <div class="field ui-g-12 ui-md-3">
+                                        <p:outputLabel for="gender" value="Gender"/>
+                                        <p:selectOneMenu id="gender">
+                                            <f:selectItem itemLabel="Male" itemValue="1"/>
+                                            <f:selectItem itemLabel="Female" itemValue="2"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="field ui-g-12 ui-md-3">
+                                        <p:outputLabel for="age" value="Age"/>
+                                        <p:inputNumber id="age" value="#{memberManagedBean.age}" requiredMessage="Age is required" required="true"/>
+                                    </div>
+                                    <div class="field ui-g-12">
+                                        <p:outputLabel for="address" value="Address"/>
+                                        <p:inputTextarea id="address" rows="4" value="#{memberManagedBean.address}" requiredMessage="Address is required" required="true"/>
+                                    </div>
+                                </div>
+                                <p:commandButton value="Submit"
+                                                 actionListener="#{memberManagedBean.addMember}"
+                                                 update=":form"
+                                                 />
+                            </p:panel>
+                        </p:panelGrid>
+                    </p:panel>
+                </div>
+            </h:form>
+        </ui:define>
+
+</ui:composition>
